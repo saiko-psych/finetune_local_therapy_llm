@@ -150,8 +150,7 @@ Dateien und Visualisierungen werden automatisch erstellt! und sind oben im file 
 
 ### Technische Limitationen
 - **Modellgröße:** 4B Parameter vs. 175B+ bei GPT-4 (erwartete Qualitätsdifferenz)
-- **Kontextlänge:** 8K Token Limit vs. 128K bei neueren Cloud-Modellen
-- **Multimodalität:** Text-only vs. Vision+Audio Fähigkeiten größerer Modelle
+- **Kontextlänge:** Token Limit bei lokalen Modellen deutlich geringer
 - **Training-Daten:** Begrenzte lokale Trainingsdaten (500 Samples) vs. Cloud-Training
 
 ### Evaluation-Limitationen  

@@ -1,0 +1,53 @@
+2025-07-30 22:12:50,527 - INFO -  Lade original...
+2025-07-30 22:13:11,139 - INFO -  original erfolgreich geladen
+2025-07-30 22:13:11,140 - INFO -  Lade finetuned...
+2025-07-30 22:13:46,284 - WARNING - The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+2025-07-30 22:13:46,748 - INFO -  finetuned erfolgreich geladen
+2025-07-30 22:13:46,749 - INFO -  Starting Filtered evaluation...
+2025-07-30 22:13:46,750 - INFO -  Starting fresh Filtered evaluation
+2025-07-30 22:13:46,751 - INFO -  Lade Mental Health Counseling Dataset...
+2025-07-30 22:13:50,460 - INFO -  Dataset geladen: 3512 Einträge total
+2025-07-30 22:13:50,461 - INFO -  Filtere geeignete Einträge (50-1000 chars Context, 50-2000 chars Response)...
+2025-07-30 22:13:50,955 - INFO -  3013 geeignete Einträge gefunden
+2025-07-30 22:13:50,958 - INFO -  6 Samples vorbereitet
+2025-07-30 22:13:50,964 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_filtered_20250730_221250.json
+2025-07-30 22:13:50,965 - INFO -  Processing 6 samples, starting from index 0
+2025-07-30 22:13:50,965 - INFO -  Processing sample 1/6 (Filtered)
+2025-07-30 22:20:51,161 - INFO -  Processing sample 2/6 (Filtered)
+2025-07-30 22:27:55,857 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_filtered_20250730_221250.json
+2025-07-30 22:27:55,860 - INFO -  Progress: 2/6 - Avg similarities: Original=0.058, Finetuned=0.075
+2025-07-30 22:27:55,861 - INFO -  Processing sample 3/6 (Filtered)
+2025-07-30 22:34:56,754 - INFO -  Processing sample 4/6 (Filtered)
+2025-07-30 22:42:23,398 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_filtered_20250730_221250.json
+2025-07-30 22:42:23,400 - INFO -  Progress: 4/6 - Avg similarities: Original=0.029, Finetuned=0.047
+2025-07-30 22:42:23,401 - INFO -  Processing sample 5/6 (Filtered)
+2025-07-30 22:49:35,578 - INFO -  Processing sample 6/6 (Filtered)
+2025-07-30 22:56:30,898 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_filtered_20250730_221250.json
+2025-07-30 22:56:30,901 - INFO -  Progress: 6/6 - Avg similarities: Original=0.040, Finetuned=0.045
+2025-07-30 22:56:30,905 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_filtered_20250730_221250.json
+2025-07-30 22:56:30,906 - INFO -  Filtered evaluation completed: 6 samples processed
+2025-07-30 22:56:30,908 - INFO -  Starting Unfiltered evaluation...
+2025-07-30 22:56:30,919 - INFO -  Starting fresh Unfiltered evaluation
+2025-07-30 22:56:30,921 - INFO -  Lade Mental Health Counseling Dataset...
+2025-07-30 22:56:33,833 - INFO -  Dataset geladen: 3512 Einträge total
+2025-07-30 22:56:33,833 - INFO -  Nehme komplett zufällige Einträge (ohne Filter)...
+2025-07-30 22:56:33,845 - INFO -  6 Samples vorbereitet
+2025-07-30 22:56:33,849 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_unfiltered_20250730_221250.json
+2025-07-30 22:56:33,849 - INFO -  Processing 6 samples, starting from index 0
+2025-07-30 22:56:33,850 - INFO -  Processing sample 1/6 (Unfiltered)
+2025-07-30 23:03:19,913 - INFO -  Processing sample 2/6 (Unfiltered)
+2025-07-30 23:10:21,149 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_unfiltered_20250730_221250.json
+2025-07-30 23:10:21,152 - INFO -  Progress: 2/6 - Avg similarities: Original=0.029, Finetuned=0.057
+2025-07-30 23:10:21,152 - INFO -  Processing sample 3/6 (Unfiltered)
+2025-07-30 23:17:07,959 - INFO -  Processing sample 4/6 (Unfiltered)
+2025-07-30 23:24:08,676 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_unfiltered_20250730_221250.json
+2025-07-30 23:24:08,678 - INFO -  Progress: 4/6 - Avg similarities: Original=0.041, Finetuned=0.044
+2025-07-30 23:24:08,679 - INFO -  Processing sample 5/6 (Unfiltered)
+2025-07-30 23:30:55,049 - INFO -  Processing sample 6/6 (Unfiltered)
+2025-07-30 23:37:44,395 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_unfiltered_20250730_221250.json
+2025-07-30 23:37:44,398 - INFO -  Progress: 6/6 - Avg similarities: Original=0.036, Finetuned=0.044
+2025-07-30 23:37:44,404 - INFO -  Checkpoint gespeichert: evaluation_results\checkpoints\evaluation_unfiltered_20250730_221250.json
+2025-07-30 23:37:44,404 - INFO -  Unfiltered evaluation completed: 6 samples processed
+2025-07-30 23:37:57,917 - INFO -  Visualizations saved: evaluation_results\model_comparison_plots_20250730_221250.png
+2025-07-30 23:37:57,964 - INFO -  Report generated: evaluation_results\evaluation_report_20250730_221250.md
+2025-07-30 23:37:57,965 - INFO -  Evaluation complete

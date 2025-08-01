@@ -1,0 +1,1 @@
+2025-07-30 22:08:40,736 - WARNING - The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.

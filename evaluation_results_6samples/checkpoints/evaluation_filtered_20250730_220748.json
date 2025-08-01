@@ -1,0 +1,49 @@
+{
+  "samples": [
+    {
+      "index": 1589,
+      "context": "We weren't long distance until he joined the military. I love him and I know he loves, me but it's complicated. He said he's not going to find someone else, but I'm afraid. How do I keep our relationship going?",
+      "ground_truth": "You're wise to be aware of possible changes to your relationship once your bf is away from you for extended time periods.All you both can do is state your intentions and wishes, keep in contact as much as possible, and wait to see how your relationship unfolds.To a large degree, each of you is relying on faith that if the relationship is meant to last for a while, then it will.   The military may add stress.This doesn't necessarily mean the stress will dissolve the relationship.Sometimes all anyone is able to do, is try.",
+      "context_length": 210,
+      "response_length": 526
+    },
+    {
+      "index": 2830,
+      "context": "My fiancée is always letting me know how I am a horrible/evil person, or I just don’t care enough when it’s about her feeling or when she is having an off day.",
+      "ground_truth": "One thing you could try is to have a conversation when neither of you is upset so that you learn what makes each of you feel cared for and valued. It could be that you are showing caring in a way that doesn't quite match what she is really looking for in that moment. For example, having an in-depth conversation could be something that you want, but she may just want a hug in that moment. I don't know if you heard of Gary Chapman's book about love languages, but it may be helpful.",
+      "context_length": 159,
+      "response_length": 484
+    },
+    {
+      "index": 2265,
+      "context": "My therapist is gay so there are no sexual issues here. However, my therapist for six years has made me believe that he cares about me and that we are friends. I have loaned money to him many times, and he always paid me back.\r\n\r\nI had a medical emergency last weekend and I was heavily medicated. I knew that this therapist came into my home and wrote down my credit card information so he could pay back what he owed me, but this therapist dropped me off and never came again.  I don't know what to do.",
+      "ground_truth": "I'm sorry to hear that this has happened. Counselors are legally and ethically required to make sure that they always put the wellbeing of their clients above their own interests. In addition, counselor ethical rules, and the laws in just about every state, make it illegal for counselors to take advantage of a client financially. A counselor borrowing money from a client (even if the counselor pays it back) would usually be considered to be taking advantage of the client.There are a few options you have at this point if you can't (or don't want) to continue to try to contact him directly. You can file a complaint with your states' regulatory board and let them know what has happened.  An investigator will then look into the situation for you.  Another option would be for you to find a different counsleor who can provide you with an independent and netural point of view to help you figure out how you want to handle this situation.",
+      "context_length": 504,
+      "response_length": 943
+    },
+    {
+      "index": 1206,
+      "context": "I'm feeling rejected and frustrated. This is not new. The first month we were together, sex was about every day. Then it slowed down to once a month right away. I love my husband, but I am struggling with this.",
+      "ground_truth": "This could have many different origins. Have you tried asking him about it? Sometimes starting with asking whether he would be open to having an important discussion can be a good beginning. If that starts well, perhaps continuing with something like \"I've noticed that we haven't been together intimately (or whatever phrasing works for you) as much lately. Can you tell me more about what it's like for you?\"When asking questions like this, it usually helpful to not overuse (and perhaps try to avoid using) the word \"why.\" That word tends to trigger really strong emotional reactions in people. Try starting with \"what makes\" Instead. For example, \"what made you choose not to do that?\"",
+      "context_length": 210,
+      "response_length": 689
+    },
+    {
+      "index": 3068,
+      "context": "I have been married for 11 years. Within the past 2 years we have drifted far apart. We coexist together but there is very little personal interest in each other. I often feel that my husband has \"friends\" at work that he is more emotional invested in than me. I feel very alone and just uncared for.  Is there anything I can do to feel reconnected?",
+      "ground_truth": "I'm sorry for how you're feeling in your marriage lately.  Are you and your husband able to talk directly about your feelings?  The way two people connect is usually by talking with each other to understand what each one cares about and thinks.Your current emotional suffering is the natural result of being married to someone who shows no interest in doing this.If your husband wants to start talking with you, then there is a chance the two of you can reconnect.  If he doesn't want to participate in the relationship with you, then start to think if its possible and for how long, to get emotional support from friends and family who do care for you.Also a question for the future is to understand what the value of your marriage is to you besides having a connection to your husband.",
+      "context_length": 349,
+      "response_length": 787
+    },
+    {
+      "index": 1624,
+      "context": "I am currently living in a hotel and I don’t have a family. I met a guy a month ago. He is a bisexual. He has a lot of gay friends on social networking sites. He would not help pay for the room. When I asked for the TV remote control, he threw it elsewhere and asked me to get it. I slapped him and asked him to leave my room. We recently just got back together. One time I was sick. He came to visit and feed me but left no money. Then he texts me and brags about his house and car knowing that I have struggles living at a hotel. He says that he has a whole house where he can put me in and orders me to text him whenever I need someone to have sex with. He left his bath soap so he could come and get it. I think that he is trying to find a way to come back. Please help me. What’s going on? I am a good, loyal woman. Why is he treating me like this?",
+      "ground_truth": "I am less concerned about this man as bisexual and having gay friends, than about how you feel is treating you.  You are in a vulnerable position because of social isolation.  If you have friends to talk to, please reach out.  While this man has money, it is not his job to take care of you financially unless the two of you have decided that together.  It sounds like he sometimes cares for you and other times you feel disrespected.  I would suggest you look for a man that is consistent in his love and care.  This is not your fault.  But you are in control of removing him from you life or choosing not to because he meets some of your needs.  Take care.",
+      "context_length": 853,
+      "response_length": 658
+    }
+  ],
+  "results": [],
+  "condition": "Filtered",
+  "use_filters": true
+}

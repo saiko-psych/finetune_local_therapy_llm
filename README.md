@@ -2,7 +2,8 @@
 
 ## 📋 Projektübersicht
 
-Dieses Projekt untersucht die Wirksamkeit des Finetunings von Large Language Models (LLMs) für therapeutische Gespräche durch den Vergleich eines Original Gemma-3-4B Modells mit einer selbst trainierten Version auf realen Mental Health Counseling Daten.
+
+Dieses Projekt untersucht die Wirksamkeit des Finetunings von Large Language Models (LLMs) für therapeutische Gespräche durch den Vergleich eines Original Gemma-3-4B Modells mit einer selbst trainierten Version auf realen Mental Health Counseling Daten. Dieses Projekt baut auf diesen Projekt auf: [GitHub](https://github.com/MGerschuetz/localTherapy) 
 
 ## 🎯 Forschungsziel
 
@@ -31,23 +32,10 @@ Dieses Projekt untersucht die Wirksamkeit des Finetunings von Large Language Mod
 - Zwei Testbedingungen:
   - **Gefiltert:** 50-1000 Zeichen (Context), 50-2000 Zeichen (Response)
   - **Ungefiltert:** Zufällige Auswahl aus allen Daten
-- Sample-Größe: 200 pro Bedingung = 400 total
+- Sample-Größe: 6 (Der Rechenaufwand war sonst zu grpß, bzw ist es sich zeitlich nicht mehr ausgegangen)
 
 ### 2. Technische Implementierung
 
-#### Modell-Setup: Lokale Deployment-Strategie
-```python
-# Basismodell: Google Gemma-3-4B-IT
-# Bewusste Wahl eines kleineren Modells für lokale Nutzung
-model_id = "google/gemma-3-4b-it"
-
-# 4-Bit Quantisierung für Consumer-Hardware Kompatibilität
-BitsAndBytesConfig:
-- 4-bit Quantisierung (NF4)     # Reduziert VRAM von ~16GB auf ~4GB
-- Float16 Compute Dtype         # Weitere Memory-Optimierung
-- CPU Offloading aktiviert      # Nutzt System-RAM als Backup
-- Double Quantisation           # Zusätzliche Kompression
-```
 
 **Warum Gemma-3-4B statt größerer Modelle?**
 - **Hardware-Anforderungen:** Läuft auf 8GB GPU (RTX 3070/4060 Ti)
@@ -55,40 +43,7 @@ BitsAndBytesConfig:
 - **Speicherbedarf:** ~4GB VRAM quantisiert vs. ~60GB+ für 70B Modelle
 - **Energieeffizienz:** Lokal betreibbar ohne Serverfarm
 
-#### LoRA Konfiguration
-```python
-LoraConfig:
-- r=16 (Rank)
-- lora_alpha=32
-- target_modules=["q_proj", "v_proj"]
-- lora_dropout=0.05
-- task_type="CAUSAL_LM"
-```
 
-#### Training-Parameter
-```python
-TrainingArguments:
-- Batch Size: 1 (mit Gradient Accumulation)
-- Learning Rate: 1e-4
-- Epochs: 10
-- Mixed Precision: FP16
-- LR Scheduler: Linear mit Warmup
-- Early Stopping verfügbar
-```
-
-### 3. Datenaufbereitung
-
-#### Kontext-Extraktion mit Metadaten
-Die Trainingsdaten werden strukturiert aufbereitet:
-- **Metainformationen:** `[Illness: {illness}] [Stage: {stage}]`
-- **Kontextaufbau:** Akkumulation der Gesprächshistorie
-- **Pairs-Extraktion:** Kontext → Therapeut-Response Paare
-
-#### Tokenisierung
-- Max Length: 1024 Token
-- Padding: "max_length"
-- Truncation: True
-- Labels = Input IDs (Causal Language Modeling)
 
 ### 4. Experimentelles Design
 
@@ -108,7 +63,7 @@ Die Trainingsdaten werden strukturiert aufbereitet:
 ### 5. Robustheit & Reproduzierbarkeit
 
 **Fehlerbehandlung:**
-- Checkpoint System (alle 10 Samples)
+- Checkpoint System (alle 2 Samples (das kann geändert werden))
 - 3 Retry-Versuche bei API-Fehlern
 - Automatische Crash Recovery
 - Vollständiges Logging
@@ -127,51 +82,7 @@ Die Trainingsdaten werden strukturiert aufbereitet:
 - **Vergleiche:** 3 pro Sample (1200 total)
 - **Aggregation:** Mittelwerte, Standardabweichungen
 
-**Statistische Tests:**
-- Verbesserungsraten (Anteil Samples mit Similarity-Gain > 0)
-- Effektgrößen zwischen gefilterten/ungefilterten Bedingungen
-- Signifikanztests für Modellunterschiede
 
-### Visualisierung
-- Verteilungsplots der Similarity-Scores
-- Vergleichsgrafiken Original vs Finetuned
-- Scatter-Plots für Korrelationsanalyse
-- Box-Plots für Variabilitätsvergleiche
-
-## 🛠️ Technische Anforderungen - Consumer-Hardware Ready
-
-### Minimum Hardware (Budget-Setup)
-- **GPU:** RTX 3060 12GB / RTX 4060 Ti 16GB / RX 6700 XT 12GB
-- **RAM:** 16GB System-RAM (8GB für Modell-Offloading)
-- **Storage:** 15GB freier Speicher (Modell + Checkpoints)
-- **Geschätzte Kosten:** ~400-600€ gebrauchte GPU
-
-### Empfohlene Hardware (Komfort-Setup)  
-- **GPU:** RTX 3070/4070 (8GB+) oder RTX 3080/4080 (10GB+)
-- **RAM:** 32GB System-RAM (für größere Batch-Sizes)
-- **Storage:** SSD mit 50GB+ freiem Speicher
-- **Geschätzte Kosten:** ~600-1000€ gebrauchte GPU
-
-### Performance-Vergleich lokaler Betrieb
-```
-Inference-Geschwindigkeit (Consumer-Hardware):
-├── RTX 3060 12GB:  ~30-50 Tokens/Sekunde
-├── RTX 3070 8GB:   ~40-70 Tokens/Sekunde  
-├── RTX 4070 12GB:  ~60-100 Tokens/Sekunde
-└── RTX 4080 16GB:  ~80-120 Tokens/Sekunde
-
-Vergleich Cloud-APIs:
-├── GPT-4: ~20-40 Tokens/Sekunde (+ Latenz + Kosten)
-├── Claude: ~15-30 Tokens/Sekunde (+ Latenz + Kosten)
-└── Lokales 4B: ~50-100 Tokens/Sekunde (keine Latenz, keine Kosten)
-```
-
-### Datenschutz-Vorteile lokaler Modelle
-- **Offline-Betrieb:** Keine Internetverbindung für Inference nötig
-- **Zero Data Transmission:** Gespräche verlassen niemals den lokalen Rechner
-- **DSGVO-Konform:** Keine Übertragung personenbezogener Daten an Dritte
-- **Audit-Fähigkeit:** Vollständige Kontrolle über Datenverarbeitung
-- **Therapeutische Schweigepflicht:** Höchster Datenschutz für sensible Inhalte
 
 ### Software Dependencies
 ```python
@@ -186,25 +97,6 @@ matplotlib>=3.7.0
 seaborn>=0.12.0
 ```
 
-## 📁 Projektstruktur
-
-```
-therapy-llm-finetuning/
-├── data/
-│   ├── processed/          # Aufbereitete Datasets
-│   └── results/           # Evaluationsergebnisse
-├── src/
-│   ├── finetune_gemma.py  # Haupttraining-Skript
-│   ├── evaluation.py      # Evaluations-Pipeline
-│   └── utils/             # Hilfsfunktionen
-├── models/
-│   └── finetuned-gemma/   # Trainierte Modell-Checkpoints
-├── logs/                  # Training & Evaluation Logs
-├── notebooks/             # Jupyter Notebooks für Analyse
-├── results/               # Plots und Reports
-├── requirements.txt       # Python Dependencies
-└── README.md             # Projektbeschreibung
-```
 
 ## 🔍 Wissenschaftlicher Beitrag
 
@@ -227,48 +119,32 @@ therapy-llm-finetuning/
 - **Forschungsförderung:** Open-Source Ansatz für weitere wissenschaftliche Entwicklung
 - **Ethik-Standard:** Referenzimplementierung für verantwortliche lokale KI
 
-## 💡 Warum lokale Modelle statt Cloud-APIs?
-
-### Datenschutz & Sicherheit
-| Aspekt | Cloud-APIs (GPT-4, Claude) | Lokales 4B Modell |
-|--------|----------------------------|-------------------|
-| **Datenübertragung** | Alle Inputs → Cloud Server | Keine (100% lokal) |
-| **Datenspeicherung** | Unbekannt/Temporär | Vollständige Kontrolle |
-| **Compliance** | Abhängig vom Anbieter | DSGVO/HIPAA ready |
-| **Auditierbarkeit** | Schwarz-Box | Open Source |
-| **Therapeutische Schweigepflicht** | Rechtsunsicherheit | Garantiert erfüllt |
-
-
-
-### Verfügbarkeit & Kontrolle
-- **24/7 Betrieb:** Keine API-Limits oder Service-Ausfälle
-- **Offline-Fähigkeit:** Funktioniert ohne Internetverbindung
-- **Latenz:** Sub-Sekunde Response vs. Cloud-Latenz
-- **Anpassbarkeit:** Vollständige Kontrolle über Modellverhalten
-- **Updates:** Selbstbestimmte Modell-Updates ohne Qualitätsverlust
 
 
 ## 🚀 Ausführung
 
 ### 1. Environment Setup
-```bash
-pip install -r requirements.txt
-```
+
+-  virtuelles environment in pyhton 3.10 anlegen und benötigte pakete installieren!
 
 ### 2. Finetuning
+environment aktiviern und im Terminal dies ausführen
+
 ```bash
-python src/finetune_gemma.py
+start /B python finetune_gemma.py > finetune_gemma.log 2>&1
+powershell -Command "Get-Content .\finetune_gemma.log -Wait -Tail 20"
 ```
 
 ### 3. Evaluation
 ```bash
-python src/evaluation.py
+python model_evaluation.py
 ```
 
-### 4. Analyse
-```bash
-jupyter notebook notebooks/analysis.ipynb
-```
+### 4. Vergleich und Analyse
+
+Dateien und Visualisierungen werden automatisch erstellt! und sind oben im file evaluation_result6samples zu finden!
+
+
 
 ## 📝 Limitationen & lokale Modell-Realitäten
 
@@ -290,32 +166,16 @@ jupyter notebook notebooks/analysis.ipynb
 - **Verbesserbar:** Lokale Modelle entwickeln sich schnell weiter
 - **Spezialisierung:** Finetuning kann Domain-spezifische Defizite ausgleichen
 
-## 🔮 Zukünftige Erweiterungen & lokale AI-Roadmap
+## 🔮 Erkenntnisse, Fazit und Ausblick
 
-### Kurzfristig (3-6 Monate)
-- **Human Evaluation:** Bewertung durch lizenzierte Therapeuten
-- **Multilinguale Evaluation:** Test auf deutsch- und anderssprachigen Daten
-- **Hardware-Optimierung:** Benchmarks auf verschiedenen Consumer-GPUs
-- **Deployment-Tools:** Docker Container für einfache Installation
+es zeigte sich bei diesem Test, dass das finetuned Modell mehr Ähnlichkeit zu der grount truth zeigte als das originale Modell. Doch habe ich dies vorerst nur mit 6 samples getestet (ich hatte einen run mit 200 samples bei der Evalauation fast durch doch ist sich dies zeitlich nicht mehr ausgegangen -> dort was das finetuned modell aber auch besser, wenn auch nur leicht). Wenn man die Antworten des finetuned Models sich genauer anschaut merkt man aber schnell, dass es übertrainiert wurde beim finetuning, denn viele Antworten folgen genau dem Muster des Trainingsdatensatz vom finetuning oder ergeben keinen Sinn mehr. Dies wird wohl daher stammen, dass das finetuning mit nur 500 samples durchgeführt wurde (es wurde early stopping angewendet beim finetuning). Beim finetuning sollten mehrere Datensätze kombineirt werden und mit einem viel größeren Datensatz sollte dann das finetuning durchgeführt werden. Die Evaluation lädt auf meinem Gerät extrem lange, da ich es nicht geschafft habe diese über CUDA laufen zu lassen (grundsätzlich wäre hier eine sample size von mind. 200 samples anzustreben).
 
-### Mittelfristig (6-12 Monate)
-- **Längere Dialoge:** Multi-Turn Gespräche und Session-Memory
-- **Lokale RAG-Integration:** Verbindung mit lokalen Wissensdatenbanken
-- **Mobile Deployment:** Optimierung für Smartphones/Tablets
-- **Federated Learning:** Dezentrale Modellverbesserung ohne Datenteilung
+Dieses Projekt zeigt nichtdestotrotz, dass durch ein relativ einfaches finetuning eine Annäherung der Antorten des Models zu den original responses in echten Konversationen.
 
-### Langfristig (1-2 Jahre)
-- **Lokale Multimodalität:** Integration von Speech-to-Text/Text-to-Speech
-- **Edge-Computing:** Deployment auf Raspberry Pi / Edge-Devices
-- **Community-Training:** Crowd-sourced Verbesserung lokaler Therapie-Modelle
-- **Regulatorische Frameworks:** Standards für lokale medizinische KI-Systeme
-
-### Vision: Demokratisierte therapeutische KI
-*"Jeder Mensch sollte Zugang zu hochwertiger, datenschutzkonformer KI-Unterstützung für mental health haben - unabhängig von Internet, Budget oder geografischer Lage."*
 
 ---
 
 **Autor:** [David Matischek]  
 **Institution:** [Karl Franzens Universität Graz]  
-**Datum:** Juli 2025  
+**Datum:** August 2025  
 **Kontakt:** [david.matischek@edu.uni-graz.at]
